@@ -15,7 +15,7 @@ client = commands.Bot(command_prefix='<', case_insensitive=True,
 
 # ---------COMMANDS---------------
 
-# info do canal
+# info do canalllll
 
 
 @client.command()
