@@ -15,6 +15,8 @@ import json #prefixos
 import random #dado
 import asyncio #resposta
 import time #dado
+from keep_alive import keep_alive
+
 
 intents = discord.Intents(messages = True, guilds = True, reactions = True, members = True, presences = True)
 
@@ -55,53 +57,6 @@ for filename in os.listdir('./cogs'):
     client.load_extension(f'cogs.{filename[:-3]}')
 
 #---------FIM DO COG---------------
-
-#-----------Comandos ADM-------------
-# #kick
-# @client.command()
-# @commands.has_permissions(manage_messages=True) #verifica permissao
-# async def kick(ctx, member : discord.Member, *, reason=None):
-#   print(f'{member} foi kickado.')
-#   await member.kick(reason=reason)
-# @kick.error
-# async def kick_error(ctx, error):
-#   if isinstance(error, commands.MissingPermissions):
-#     await ctx.send('Você não tem permissão para isso.')
-
-# #ban
-# @client.command()
-# @commands.has_permissions(manage_messages=True) #verifica permissao
-# async def ban(ctx, member : discord.Member, *, reason=None):
-#   print(f'{member} foi banido.')
-#   await member.ban(reason=reason)
-#   await ctx.send(f'Banido {member.mention}')
-# @ban.error
-# async def ban_error(ctx, error):
-#   if isinstance(error, commands.MissingPermissions):
-#     await ctx.send('Você não tem permissão para isso.')
-
-# #unban
-# @client.command()
-# @commands.has_permissions(manage_messages=True) #verifica permissao
-# async def unban(ctx, *, member):
-#   banned_users = await ctx.guild.bans()
-#   member_name, member_discriminator = member.split('#')
-
-#   for ban_entry in banned_users:
-#     user = ban_entry.user
-
-#     if(user.name, user.discriminator) == (member_name, member_discriminator):
-#       await ctx.guild.unban(user)
-#       await ctx.send(f'Desbanido {user.mention}')
-#       print(f'{member} foi desbanido.')
-#       return
-
-# @unban.error
-# async def unban_error(ctx, error):
-#   if isinstance(error, commands.MissingPermissions):
-#     await ctx.send('Você não tem permissão para isso.')
-
-#Fim-----------Comandos ADM-------------
 
 #comando de dado
 @client.command()
@@ -146,12 +101,12 @@ async def on_ready():
 #Member has joined
 @client.event
 async def on_member_join(member):
-  print(f'{member} has joined a server.')
+  print(f'{member} entrou no servidor ^.^')
   
 #Member has left
 @client.event
 async def on_member_remove(member):
-  print(f'{member} has left a server.')
+  print(f'{member} saiu do servidor T_T')
 
 #--------------ERROS-------------------
 #tratamento de erro
@@ -195,4 +150,5 @@ async def changeprefix(ctx, prefix):
   
   await ctx.send(f'Você mudou o prefixo para: {prefix}')
   
+keep_alive()
 client.run(os.getenv('TOKEN')) #ou colocar o token direto
